@@ -40,6 +40,19 @@ tools = [
                 }
             }
         }
+    }, 
+    {
+        "type": "function",
+        "function": {
+            "name": "create_files",
+            "description": "Create a file with the given content",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "filename": {"type": "string", "description": "The name of the file to create"}
+                }
+            }
+        }
     }
 ]
 
@@ -95,10 +108,11 @@ def get_web_results(location, unit="celsius"):
     selector = Selector(response)
     return parse_search_results(selector)
 
-
+def create_files(filename):
+    os.system(f'touch {filename}')
 def chat():
     messages = [
-        {"role": "system", "content": "You are a helpful assistant that can access external functions. The responses from these function calls will be appended to this dialogue. Please provide responses based on the information from these function calls."},
+        {"role": "system", "content": "You are a helpful assistant that can access external functions. The responses from these function calls will be appended to this dialogue. Please provide responses based on the information from these function calls. If there are actions to be made, just do it."},
         {"role": "user", "content": "What is the current temperature of Karachi?"}
     ]
 
@@ -129,4 +143,5 @@ def chat():
 
 
 if __name__ == "__main__":
-    chat()
+    # chat()
+    create_files('test.txt')
